@@ -13,6 +13,7 @@
 import unittest
 import requests
 import re
+import urllib
 from bs4 import BeautifulSoup
 
 
@@ -50,9 +51,20 @@ def find_urls(s):
 ## http://www.michigandaily.com/section/opinion
 
 def grab_headlines():
-    pass
-    #Your code here
+    headlines_list = list()
 
+    url = 'http://www.michigandaily.com/section/opinion'
+    html = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(html, "html.parser")
+    
+    #tags = soup('ol')
+    #for tag in tags:
+    #    print (tag)
+    div = soup.find('div', class_ = 'panel-pane pane-mostread')
+    li = div.find_all('li')
+    for item in li:
+        headlines_list.append(item.find('a').contents[0])
+    return (headlines_list)
 
 
 ## PART 3 (a) Define a function called get_umsi_data.  It should create a dictionary
