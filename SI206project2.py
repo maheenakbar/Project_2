@@ -121,9 +121,9 @@ def num_students(data):
     
     phd_students = 0
 
-    #checks if the value of each key is 'PhD stduent' and if so, adds 1 to the phd_students variable
+    #uses regex to find all the values that are 'PhD student'
     for key in data:
-        if data[key] == 'PhD student':
+        if (re.search('PhD student', data[key])):
             phd_students += 1
 
     return phd_students
